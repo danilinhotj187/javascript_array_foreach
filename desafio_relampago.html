@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Adivinhação</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo de Adivinhação</h1>
+  <p>Tente adivinhar o número entre 0 e 30!</p>
+  <input type="number" id="guess" placeholder="Digite seu palpite" min="0" max="30">
+  <button onclick="makeGuess()">Enviar Palpite</button>
+  <div class="message" id="message"></div>
+
+  <script>
+    // Gera um número aleatório entre 0 e 30
+    const randomNumber = Math.floor(Math.random() * 31);
+    let attempts = 0; // Número de tentativas
+
+    function makeGuess() {
+      const userGuess = Number(document.getElementById('guess').value);
+
+      // Verifica se o número está fora do intervalo permitido
+      if (userGuess < 0 || userGuess > 30) {
+        document.getElementById('message').textContent = 'Número inválido! Digite um número entre 0 e 30.';
+        return;
+      }
+
+      attempts++;
+
+      if (userGuess === randomNumber) {
+        document.getElementById('message').textContent = `Parabéns! Você acertou o número ${randomNumber} em ${attempts} tentativa(s).`;
+      } else if (attempts >= 5) {
+        document.getElementById('message').textContent = `Que pena! Você não acertou o número ${randomNumber}. Boa sorte na próxima!`;
+      } else {
+        document.getElementById('message').textContent = `Você não acertou. Tentativas restantes: ${5 - attempts}`;
+      }
+    }
+  </script>
+</body>
+</html>
